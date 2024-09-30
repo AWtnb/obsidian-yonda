@@ -1,3 +1,5 @@
+import { App, Modal, MarkdownView } from "obsidian";
+
 export class IsbnHandler {
 	private isbn: string;
 	static placeholder: string = "978-4-00000000-0";
@@ -38,4 +40,12 @@ export class IsbnHandler {
 			s.substring(12, 13)
 		);
 	}
+}
+
+export const activeFileBasename = (app: App): string => {
+	const activeLeaf = app.workspace.getActiveViewOfType(MarkdownView);
+	if (!activeLeaf) return "";
+	const activeFile = activeLeaf.file;
+	if (!activeFile) return "";
+	return activeFile.basename;
 }
