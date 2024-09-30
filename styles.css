@@ -6,3 +6,14 @@ available in the app when your plugin is enabled.
 If your plugin does not need CSS, delete this file.
 
 */
+
+#register-modal input {
+	display: block;
+}
+#register-modal #preview {
+	height: 2em;
+}
+
+.bookscrap-ribbon {
+	border: 1px solid tomato;
+}
