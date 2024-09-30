@@ -10,4 +10,4 @@ Do [this](https://github.com/AWtnb/bookscrap) on Obsidian.
 ---
 
 - Generated from [obsidian-sample-plugin](https://github.com/obsidianmd/obsidian-sample-plugin)
-- [API Documentation](See https://github.com/obsidianmd/obsidian-api)
+- [API Documentation](https://github.com/obsidianmd/obsidian-api)
