@@ -1,10 +1,10 @@
-# Obsidian Bookscrap
+# Obsidian Yonda
 
 Do [this](https://github.com/AWtnb/bookscrap) on Obsidian.
 
 ## Install
 
-- Copy over `main.js`, `styles.css`, `manifest.json` to `VaultFolder/.obsidian/plugins/obsidian-bookscrap/` or run [install.ps1](install.ps1).
+- Copy over `main.js`, `styles.css`, `manifest.json` to `VaultFolder/.obsidian/plugins/obsidian-yonda/` or run [install.ps1](install.ps1).
 - Enable this plugin from setting `Community Plugins`.
 
 ---

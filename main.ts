@@ -3,20 +3,20 @@ import { Plugin } from "obsidian";
 import { ScrapModal } from "Modals/Scrap";
 import { FrontmatterGeneratorModal } from "Modals/Frontmatter";
 
-export default class Bookscrap extends Plugin {
+export default class Yonda extends Plugin {
 	async onload() {
 		const ribbonIconEl = this.addRibbonIcon(
 			"dice",
-			"Create or open bookscrap",
+			"Create or open yonda-note",
 			(evt: MouseEvent) => {
 				new ScrapModal(this.app).open();
 			}
 		);
-		ribbonIconEl.addClass("bookscrap-ribbon");
+		ribbonIconEl.addClass("yonda-ribbon");
 
 		this.addCommand({
-			id: "open-bookscrap-modal",
-			name: "Create or open bookscrap",
+			id: "open-yonda-modal",
+			name: "Create or open yonda",
 			checkCallback: (checking: boolean): boolean => {
 				if (!checking) {
 					new ScrapModal(this.app).open();
@@ -26,8 +26,8 @@ export default class Bookscrap extends Plugin {
 		});
 
 		this.addCommand({
-			id: "open-bookscrap-frontmatter-generator-modal",
-			name: "Generate bookscrap frontmatter",
+			id: "open-yonda-frontmatter-generator-modal",
+			name: "Generate yonda frontmatter",
 			checkCallback: (checking: boolean): boolean => {
 				if (!checking) {
 					new FrontmatterGeneratorModal(this.app).open();

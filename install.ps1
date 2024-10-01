@@ -5,7 +5,7 @@ function Copy-PluginFiles {
         return
     }
 
-    $obsidianPath = $cb | Join-Path -ChildPath ".obsidian\plugins\obsidian-bookscrap"
+    $obsidianPath = $cb | Join-Path -ChildPath ".obsidian\plugins\obsidian-yonda"
     if (-not (Test-Path $obsidianPath -PathType Container)) {
         New-Item $obsidianPath -ItemType Directory
     }

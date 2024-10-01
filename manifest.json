@@ -1,10 +1,10 @@
 {
-	"id": "obsidian-bookscrap",
-	"name": "Bookscrap",
+	"id": "obsidian-yonda",
+	"name": "Yonda",
 	"version": "1.0.0",
 	"minAppVersion": "0.15.0",
 	"description": "Personal obsidian plugin fo scrapping book info.",
 	"author": "Obsidian",
-	"authorUrl": "https://github.com/AWtnb/obsidian-bookscrap",
+	"authorUrl": "https://github.com/AWtnb/obsidian-yonda",
 	"isDesktopOnly": false
 }
