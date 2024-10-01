@@ -1,19 +1,12 @@
-/*
-
-This CSS file will be included with your plugin, and
-available in the app when your plugin is enabled.
-
-If your plugin does not need CSS, delete this file.
-
-*/
-
 #register-modal input {
 	display: block;
 }
 #register-modal #preview {
 	height: 2em;
 }
-
-.yonda-ribbon {
+#frontmatter-gen-modal .subtitle {
 	border: 1px solid tomato;
+}
+#frontmatter-gen-modal label input {
+	display: block;
 }

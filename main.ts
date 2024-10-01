@@ -6,16 +6,17 @@ import { FrontmatterGeneratorModal } from "Modals/Frontmatter";
 const COMMAND_RegisterNote = "register note";
 const COMMAND_GenerateFrontmatter = "generate frontmatter";
 
+// https://forum.obsidian.md/t/list-of-available-icons-for-component-seticon/16332/3
+
 export default class Yonda extends Plugin {
 	async onload() {
-		const ribbonIconEl = this.addRibbonIcon(
-			"dice",
-			COMMAND_RegisterNote,
-			() => {
-				new RegisterModal(this.app).open();
-			}
-		);
-		ribbonIconEl.addClass("yonda-ribbon");
+		this.addRibbonIcon("popup-open", COMMAND_RegisterNote, () => {
+			new RegisterModal(this.app).open();
+		}).addClass("yonda-register-ribbon");
+
+		this.addRibbonIcon("documents", COMMAND_GenerateFrontmatter, () => {
+			new FrontmatterGeneratorModal(this.app).open();
+		}).addClass("yonda-generate-frontmatter-ribbon");
 
 		this.addCommand({
 			id: "yonda-open-register-modal",
