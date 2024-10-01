@@ -1,9 +1,9 @@
 import { App, Modal } from "obsidian";
 
-import { IsbnHandler, activeFileBasename } from "helpers/helpers";
+import { IsbnHandler, activeFileBasename } from "Modals/helpers";
 import axios from "axios";
 
-export class ScrapModal extends Modal {
+export class RegisterModal extends Modal {
 	private readonly noteBasename: string;
 	constructor(app: App) {
 		super(app);

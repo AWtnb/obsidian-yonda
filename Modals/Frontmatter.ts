@@ -1,6 +1,6 @@
 import { App, Modal } from "obsidian";
 
-import { activeFileBasename } from "helpers/helpers";
+import { activeFileBasename } from "Modals/helpers";
 import axios from "axios";
 
 export class FrontmatterGeneratorModal extends Modal {
