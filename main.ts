@@ -16,7 +16,7 @@ export default class Yonda extends Plugin {
 
 		this.addCommand({
 			id: "open-yonda-modal",
-			name: "Create or open yonda",
+			name: "Create or open yonda-note",
 			checkCallback: (checking: boolean): boolean => {
 				if (!checking) {
 					new ScrapModal(this.app).open();
