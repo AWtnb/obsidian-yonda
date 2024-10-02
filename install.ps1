@@ -1,16 +1,17 @@
 function Copy-PluginFiles {
-    $cb = Get-Clipboard
-    if (-not (Test-Path $cb -PathType Container)) {
-        "Run this .ps1 after coping vault folder path." | Write-Host -ForegroundColor Red
+    param(
+        [string]$vaultDir
+    )
+    if (-not (Test-Path $vaultDir -PathType Container)) {
+        "Vault path not found on this computer." | Write-Host -ForegroundColor Red
         return
     }
 
-    $obsidianPath = $cb | Join-Path -ChildPath ".obsidian\plugins\obsidian-yonda"
+    $obsidianPath = $vaultDir | Join-Path -ChildPath ".obsidian\plugins\obsidian-yonda"
     if (-not (Test-Path $obsidianPath -PathType Container)) {
         New-Item $obsidianPath -ItemType Directory
     }
-
     Get-ChildItem -Path @("main.js", "styles.css", "manifest.json") | Copy-Item -Destination $obsidianPath
 }
 
-Copy-PluginFiles
+Copy-PluginFiles -vaultDir $args[0]
