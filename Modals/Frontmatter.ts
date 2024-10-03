@@ -97,7 +97,7 @@ export class FrontmatterGeneratorModal extends Modal {
 				}
 			});
 
-			const googleBooksButton = contentEl.createEl("button", {
+		const googleBooksButton = contentEl.createEl("button", {
 			text: "Google Books",
 		});
 		googleBooksButton.onclick = () => {
