@@ -69,9 +69,6 @@ export class FrontmatterGeneratorModal extends Modal {
 		const clearSubTitleButton = subTitle.createEl("button", {
 			text: "Clear",
 		});
-		clearSubTitleButton.onclick = () => {
-			subTitleInput.value = "";
-		};
 		const publisherInput = contentEl
 			.createEl("label", { text: "publisher" })
 			.createEl("input");
@@ -81,6 +78,34 @@ export class FrontmatterGeneratorModal extends Modal {
 		const tagsInput = contentEl
 			.createEl("label", { text: "tags" })
 			.createEl("input");
+		const previewArea = contentEl.createEl("textarea");
+		const frontmatterBase = (): BookInfo => {
+			return {
+				title: titleInput.value,
+				subTitle: subTitleInput.value,
+				isbn: noteBasename,
+				publisher: publisherInput.value,
+				pubYear: publishYearInput.value,
+				author: tagsInput.value,
+			};
+		};
+		const updatePreview = () => {
+			previewArea.value = JSON.stringify(frontmatterBase());
+		};
+
+		[
+			titleInput,
+			subTitle,
+			subTitleInput,
+			clearSubTitleButton,
+			publisherInput,
+			publishYearInput,
+			tagsInput,
+		].forEach((el) => (el.oninput = updatePreview));
+		clearSubTitleButton.onclick = () => {
+			subTitleInput.value = "";
+			updatePreview();
+		};
 
 		axios
 			.get(`https://api.openbd.jp/v1/get?isbn=${noteBasename}`)
@@ -94,6 +119,7 @@ export class FrontmatterGeneratorModal extends Modal {
 					publisherInput.value = toHalfWidth(summary.publisher);
 					publishYearInput.value = summary.pubdate.substring(0, 4);
 					tagsInput.value = summary.author;
+					updatePreview();
 				}
 			});
 
@@ -117,6 +143,7 @@ export class FrontmatterGeneratorModal extends Modal {
 							vInfo.publishedDate || ""
 						).substring(0, 4);
 						tagsInput.value = toHalfWidth(vInfo.authors.join(" "));
+						updatePreview();
 					}
 				});
 		};
