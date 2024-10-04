@@ -4,9 +4,18 @@
 #register-modal #preview {
 	height: 2em;
 }
+#frontmatter-gen-modal textarea.preview {
+	height: 400px;
+	width: 100%;
+}
 #frontmatter-gen-modal .subtitle {
-	border: 1px solid tomato;
+	margin-left: 1em;
+}
+#frontmatter-gen-modal label {
+	margin-top: 0.5em;
 }
 #frontmatter-gen-modal label input {
+	margin: 4px 0;
 	display: block;
+	width: 90%;
 }

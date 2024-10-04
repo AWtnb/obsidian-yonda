@@ -2,6 +2,7 @@ import { App, Modal, MarkdownView } from "obsidian";
 
 import { activeFileBasename } from "Modals/helpers";
 import axios from "axios";
+import { dump } from "js-yaml";
 
 const toHalfWidth = (s: string): string => {
 	return s.replace(/[\uff21-\uff3a\uff41-\uff5a\uff10-\uff19]/g, (s) => {
@@ -19,21 +20,12 @@ const toAuthorTags = (s: string): string[] => {
 		.filter((x) => x.length);
 };
 
-interface Frontmatter {
+interface YondaFrontmatter {
 	aliases: string[];
 	isbn: string;
 	from: string;
-	year: number;
+	year: string;
 	tags: string[];
-}
-
-interface BookInfo {
-	title: string;
-	subTitle: string;
-	isbn: string;
-	publisher: string;
-	pubYear: string;
-	author: string;
 }
 
 export class FrontmatterGeneratorModal extends Modal {
@@ -57,7 +49,14 @@ export class FrontmatterGeneratorModal extends Modal {
 
 		const { contentEl } = this;
 		contentEl.id = "frontmatter-gen-modal";
-		contentEl.createEl("h1", { text: "New scrap by ISBN" });
+		contentEl.createEl("h1", {
+			text: "Generate frontmatter by note title",
+		});
+		const googleBooksButton = contentEl
+			.createDiv({ cls: "google-button" })
+			.createEl("button", {
+				text: "Google Books",
+			});
 		const titleInput = contentEl
 			.createEl("label", { text: "title" })
 			.createEl("input");
@@ -78,19 +77,29 @@ export class FrontmatterGeneratorModal extends Modal {
 		const tagsInput = contentEl
 			.createEl("label", { text: "tags" })
 			.createEl("input");
-		const previewArea = contentEl.createEl("textarea");
-		const frontmatterBase = (): BookInfo => {
-			return {
-				title: titleInput.value,
-				subTitle: subTitleInput.value,
+		const previewArea = contentEl.createEl("textarea", { cls: "preview" });
+
+		const titleAliases = (): string[] => {
+			const main = toHalfWidth(titleInput.value).trim();
+			const sub = toHalfWidth(subTitleInput.value).trim();
+			if (main == sub || sub.length < 1) {
+				return [main];
+			}
+			return [`${main}――${sub}`, main];
+		};
+
+		const bookFrontmatter = (): string => {
+			const fm: YondaFrontmatter = {
+				aliases: titleAliases(),
 				isbn: noteBasename,
-				publisher: publisherInput.value,
-				pubYear: publishYearInput.value,
-				author: tagsInput.value,
+				from: publisherInput.value,
+				year: publishYearInput.value,
+				tags: toAuthorTags(tagsInput.value),
 			};
+			return ["---", dump(fm).trim(), "---"].join("\n");
 		};
 		const updatePreview = () => {
-			previewArea.value = JSON.stringify(frontmatterBase());
+			previewArea.value = bookFrontmatter();
 		};
 
 		[
@@ -123,9 +132,6 @@ export class FrontmatterGeneratorModal extends Modal {
 				}
 			});
 
-		const googleBooksButton = contentEl.createEl("button", {
-			text: "Google Books",
-		});
 		googleBooksButton.onclick = () => {
 			axios
 				.get(

@@ -13,7 +13,7 @@ export class RegisterModal extends Modal {
 	onOpen() {
 		const { contentEl } = this;
 		contentEl.id = "register-modal";
-		contentEl.createEl("h1", { text: "New scrap by ISBN" });
+		contentEl.createEl("h1", { text: "New note by ISBN" });
 		const isbn = contentEl.createDiv({ text: IsbnHandler.placeholder });
 		const preview = contentEl.createDiv({ text: "" });
 		preview.id = "preview";
