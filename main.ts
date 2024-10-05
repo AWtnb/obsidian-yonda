@@ -2,21 +2,28 @@ import { Plugin } from "obsidian";
 
 import { RegisterModal } from "Modals/Register";
 import { FrontmatterGeneratorModal } from "Modals/Frontmatter";
+import { ObsidianIcons } from "Modals/icons";
 
-const COMMAND_RegisterNote = "Register note";
-const COMMAND_GenerateFrontmatter = "Generate frontmatter";
-
-// https://forum.obsidian.md/t/list-of-available-icons-for-component-seticon/16332/3
+const COMMAND_RegisterNote = "ノートを作る／開く";
+const COMMAND_GenerateFrontmatter = "フロントマターを作る";
 
 export default class Yonda extends Plugin {
 	async onload() {
-		this.addRibbonIcon("popup-open", COMMAND_RegisterNote, () => {
-			new RegisterModal(this.app).open();
-		}).addClass("yonda-register-ribbon");
+		this.addRibbonIcon(
+			ObsidianIcons.CreateNew,
+			COMMAND_RegisterNote,
+			() => {
+				new RegisterModal(this.app).open();
+			}
+		).addClass("yonda-register-ribbon");
 
-		this.addRibbonIcon("documents", COMMAND_GenerateFrontmatter, () => {
-			new FrontmatterGeneratorModal(this.app).open();
-		}).addClass("yonda-generate-frontmatter-ribbon");
+		this.addRibbonIcon(
+			ObsidianIcons.Pencil,
+			COMMAND_GenerateFrontmatter,
+			() => {
+				new FrontmatterGeneratorModal(this.app).open();
+			}
+		).addClass("yonda-generate-frontmatter-ribbon");
 
 		this.addCommand({
 			id: "yonda-open-register-modal",

@@ -13,13 +13,14 @@ export class RegisterModal extends Modal {
 	onOpen() {
 		const { contentEl } = this;
 		contentEl.id = "register-modal";
-		contentEl.createEl("h1", { text: "New note by ISBN" });
+		contentEl.createEl("h1", { text: "ISBNで登録" });
 		const isbn = contentEl.createDiv({ text: IsbnHandler.placeholder });
 		const preview = contentEl.createDiv({ text: "" });
-		preview.id = "preview";
+		preview.id = "preview-title";
 		const input = contentEl.createEl("input", { type: "tel" });
 		const button = contentEl.createEl("button", { text: "OK" });
 
+		input.focus();
 		input.oninput = async () => {
 			const bookNum = input.value;
 			const handler = new IsbnHandler(bookNum);

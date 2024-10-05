@@ -1,10 +1,20 @@
 # Obsidian Yonda
 
-Do [this](https://github.com/AWtnb/bookscrap) on Obsidian.
+![img](./images/img-register.png)
+
+![img](./images/img-generate.png)
+
+![img](./images/img-result.png)
+
+Obsidian for [this](https://github.com/AWtnb/bookscrap).
+
+ISBNで書誌情報を取得してObsidianに登録する。
 
 ## Install
 
 Run [install.ps1](install.ps1) with vault folder path as an argument.
+
+管理対象のフォルダパスを引数にして [install.ps1](install.ps1) を実行する。
 
 ```
 # Example
@@ -15,6 +25,7 @@ Run [install.ps1](install.ps1) with vault folder path as an argument.
 
 Copy over `main.js`, `styles.css`, `manifest.json` to `VaultFolder/.obsidian/plugins/obsidian-yonda/` .
 
+`main.js` ・ `styles.css` ・ `manifest.json` をそれぞれ `（管理対象のフォルダ）/.obsidian/plugins/obsidian-yonda/` にコピーしてもインストール可能。
 
 ---
 

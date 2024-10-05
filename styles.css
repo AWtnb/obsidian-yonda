@@ -1,8 +1,9 @@
 #register-modal input {
 	display: block;
+	height: var(--input-height);
 }
 
-#register-modal #preview {
+#preview-title {
 	height: 2em;
 }
 
@@ -17,7 +18,7 @@
 }
 
 #frontmatter-gen-modal .subtitle {
-	padding-left: .5em;
+	padding-left: 0.5em;
 	position: relative;
 	border-left: 2px solid var(--color-base-60);
 }

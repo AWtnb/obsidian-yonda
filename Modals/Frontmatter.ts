@@ -53,12 +53,12 @@ export class FrontmatterGeneratorModal extends Modal {
 			noteBasename.length != 13 ||
 			!noteBasename.startsWith("9784")
 		) {
-			new Notice("note name is not ISBN.");
+			new Notice("ノート名がISBNではありません。");
 			this.close();
 			return;
 		}
 		if (checkFrontmatter(this.app)) {
-			new Notice("this note already has frontmatter.");
+			new Notice("このノートにはもうフロントマターがあります。");
 			this.close();
 			return;
 		}
@@ -66,7 +66,7 @@ export class FrontmatterGeneratorModal extends Modal {
 		const { contentEl } = this;
 		contentEl.id = "frontmatter-gen-modal";
 		contentEl.createEl("h1", {
-			text: "Generate frontmatter by note title",
+			text: "書誌情報",
 		});
 		const googleBooksButton = contentEl
 			.createDiv({ cls: "google-button" })
@@ -143,8 +143,8 @@ export class FrontmatterGeneratorModal extends Modal {
 					const summary = response.data[0].summary;
 					titleInput.value = summary.title;
 					subTitleInput.value =
-						response.data[0].onix.DescriptiveDetail.TitleDetail
-							.TitleElement.TitleText.content || "";
+						response.data[0].onix?.DescriptiveDetail?.TitleDetail
+							?.TitleElement?.Subtitle?.content || "";
 					publisherInput.value = toHalfWidth(summary.publisher);
 					publishYearInput.value = summary.pubdate.substring(0, 4);
 					tagsInput.value = summary.author;
