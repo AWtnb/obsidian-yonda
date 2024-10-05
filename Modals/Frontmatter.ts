@@ -1,4 +1,4 @@
-import { App, Modal, MarkdownView } from "obsidian";
+import { App, Modal, MarkdownView, Notice } from "obsidian";
 
 import { activeFileBasename } from "Modals/helpers";
 import axios from "axios";
@@ -18,6 +18,16 @@ const toAuthorTags = (s: string): string[] => {
 			return x.replace(/(?<![a-z]),/g, "").replace(/\d{4}-/g, "");
 		})
 		.filter((x) => x.length);
+};
+
+const checkFrontmatter = (app: App): boolean => {
+	const activeView = app.workspace.getActiveViewOfType(MarkdownView);
+	if (!activeView) return false;
+	const activeFile = activeView.file;
+	if (!activeFile) return false
+	const cache = app.metadataCache.getFileCache(activeFile)
+	if (!cache) return false;
+	return !!cache.frontmatter;
 };
 
 interface YondaFrontmatter {
@@ -43,6 +53,12 @@ export class FrontmatterGeneratorModal extends Modal {
 			noteBasename.length != 13 ||
 			!noteBasename.startsWith("9784")
 		) {
+			new Notice("note name is not ISBN.");
+			this.close();
+			return;
+		}
+		if (checkFrontmatter(this.app)) {
+			new Notice("this note already has frontmatter.");
 			this.close();
 			return;
 		}

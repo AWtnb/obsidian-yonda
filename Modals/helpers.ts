@@ -1,4 +1,4 @@
-import { App, Modal, MarkdownView } from "obsidian";
+import { App, MarkdownView } from "obsidian";
 
 export class IsbnHandler {
 	private isbn: string;
@@ -43,9 +43,9 @@ export class IsbnHandler {
 }
 
 export const activeFileBasename = (app: App): string => {
-	const activeLeaf = app.workspace.getActiveViewOfType(MarkdownView);
-	if (!activeLeaf) return "";
-	const activeFile = activeLeaf.file;
+	const activeView = app.workspace.getActiveViewOfType(MarkdownView);
+	if (!activeView) return "";
+	const activeFile = activeView.file;
 	if (!activeFile) return "";
 	return activeFile.basename;
 }
