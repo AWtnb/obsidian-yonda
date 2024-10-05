@@ -24,8 +24,8 @@ const checkFrontmatter = (app: App): boolean => {
 	const activeView = app.workspace.getActiveViewOfType(MarkdownView);
 	if (!activeView) return false;
 	const activeFile = activeView.file;
-	if (!activeFile) return false
-	const cache = app.metadataCache.getFileCache(activeFile)
+	if (!activeFile) return false;
+	const cache = app.metadataCache.getFileCache(activeFile);
 	if (!cache) return false;
 	return !!cache.frontmatter;
 };
@@ -82,7 +82,7 @@ export class FrontmatterGeneratorModal extends Modal {
 			.createEl("label", { text: "subtitle" })
 			.createEl("input");
 		const clearSubTitleButton = subTitle.createEl("button", {
-			text: "Clear",
+			text: "\u00d7",
 		});
 		const publisherInput = contentEl
 			.createEl("label", { text: "publisher" })
@@ -94,6 +94,10 @@ export class FrontmatterGeneratorModal extends Modal {
 			.createEl("label", { text: "tags" })
 			.createEl("input");
 		const previewArea = contentEl.createEl("textarea", { cls: "preview" });
+		const execButton = contentEl.createEl("button", {
+			text: "OK",
+			cls: "exec",
+		});
 
 		const titleAliases = (): string[] => {
 			const main = toHalfWidth(titleInput.value).trim();
@@ -168,6 +172,19 @@ export class FrontmatterGeneratorModal extends Modal {
 						updatePreview();
 					}
 				});
+		};
+
+		execButton.onclick = async () => {
+			const activeView =
+				this.app.workspace.getActiveViewOfType(MarkdownView);
+			if (!activeView) return;
+			const file = activeView.file;
+			if (!file) return;
+			await this.app.vault.modify(
+				file,
+				previewArea.value + "\n" + (await this.app.vault.read(file))
+			);
+			this.close();
 		};
 	}
 

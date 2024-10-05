@@ -3,8 +3,8 @@ import { Plugin } from "obsidian";
 import { RegisterModal } from "Modals/Register";
 import { FrontmatterGeneratorModal } from "Modals/Frontmatter";
 
-const COMMAND_RegisterNote = "register note";
-const COMMAND_GenerateFrontmatter = "generate frontmatter";
+const COMMAND_RegisterNote = "Register note";
+const COMMAND_GenerateFrontmatter = "Generate frontmatter";
 
 // https://forum.obsidian.md/t/list-of-available-icons-for-component-seticon/16332/3
 

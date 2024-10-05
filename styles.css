@@ -1,21 +1,48 @@
 #register-modal input {
 	display: block;
 }
+
 #register-modal #preview {
 	height: 2em;
 }
+
+#frontmatter-gen-modal input {
+	height: var(--input-height);
+}
 #frontmatter-gen-modal textarea.preview {
-	height: 400px;
+	resize: none;
+	margin-top: 1em;
+	min-height: 170px;
 	width: 100%;
 }
+
 #frontmatter-gen-modal .subtitle {
-	margin-left: 1em;
+	padding-left: .5em;
+	position: relative;
+	border-left: 2px solid var(--color-base-60);
 }
+
+#frontmatter-gen-modal .subtitle button {
+	position: absolute;
+	right: 0;
+	box-shadow: none;
+	background: transparent;
+	bottom: 0;
+}
+
 #frontmatter-gen-modal label {
+	display: block;
 	margin-top: 0.5em;
 }
+
 #frontmatter-gen-modal label input {
 	margin: 4px 0;
 	display: block;
 	width: 90%;
+}
+
+#frontmatter-gen-modal button.exec {
+	width: 100%;
+	background: var(--metadata-input-background-active);
+	color: var(--metadata-input-text-color);
 }
