@@ -73,9 +73,12 @@ export class FrontmatterGeneratorModal extends Modal {
 			.createEl("button", {
 				text: "Google Books",
 			});
-		const titleInput = contentEl
+		const title = contentEl.createDiv();
+		title.addClass("title");
+		const titleInput = title
 			.createEl("label", { text: "title" })
 			.createEl("input");
+		const applyTitleButton = title.createEl("button", { text: "\u25bc" });
 		const subTitle = contentEl.createDiv();
 		subTitle.addClass("subtitle");
 		const subTitleInput = subTitle
@@ -131,8 +134,14 @@ export class FrontmatterGeneratorModal extends Modal {
 			publishYearInput,
 			tagsInput,
 		].forEach((el) => (el.oninput = updatePreview));
+
 		clearSubTitleButton.onclick = () => {
 			subTitleInput.value = "";
+			updatePreview();
+		};
+
+		applyTitleButton.onclick = () => {
+			subTitleInput.value = titleInput.value;
 			updatePreview();
 		};
 

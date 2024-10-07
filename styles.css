@@ -7,6 +7,10 @@
 	height: 2em;
 }
 
+#frontmatter-gen-modal .google-button button {
+	outline: solid 1px gray;
+}
+
 #frontmatter-gen-modal input {
 	height: var(--input-height);
 }
@@ -15,6 +19,17 @@
 	margin-top: 1em;
 	min-height: 170px;
 	width: 100%;
+}
+
+#frontmatter-gen-modal .title {
+	position: relative;
+}
+#frontmatter-gen-modal .title button {
+	position: absolute;
+	right: 0;
+	box-shadow: none;
+	background: transparent;
+	bottom: 0;
 }
 
 #frontmatter-gen-modal .subtitle {
