@@ -1,29 +1,24 @@
-import { Plugin } from "obsidian";
+import { Plugin, Editor, MarkdownView } from "obsidian";
 
 import { RegisterModal } from "Modals/Register";
 import { FrontmatterGeneratorModal } from "Modals/Frontmatter";
-import { ObsidianIcons } from "Modals/icons";
+import { addSymbol } from "Modals/Inline";
 
 const COMMAND_RegisterNote = "ノートを作る／開く";
 const COMMAND_GenerateFrontmatter = "フロントマターを作る";
 
+// https://docs.obsidian.md/Plugins/User+interface/Icons#Browse+available+icons
+// https://lucide.dev/icons/
+
 export default class Yonda extends Plugin {
 	async onload() {
-		this.addRibbonIcon(
-			ObsidianIcons.CreateNew,
-			COMMAND_RegisterNote,
-			() => {
-				new RegisterModal(this.app).open();
-			}
-		).addClass("yonda-register-ribbon");
+		this.addRibbonIcon("book-plus", COMMAND_RegisterNote, () => {
+			new RegisterModal(this.app).open();
+		}).addClass("yonda-register-ribbon");
 
-		this.addRibbonIcon(
-			ObsidianIcons.Pencil,
-			COMMAND_GenerateFrontmatter,
-			() => {
-				new FrontmatterGeneratorModal(this.app).open();
-			}
-		).addClass("yonda-generate-frontmatter-ribbon");
+		this.addRibbonIcon("badge-info", COMMAND_GenerateFrontmatter, () => {
+			new FrontmatterGeneratorModal(this.app).open();
+		}).addClass("yonda-generate-frontmatter-ribbon");
 
 		this.addCommand({
 			id: "yonda-open-register-modal",
@@ -44,6 +39,22 @@ export default class Yonda extends Plugin {
 					new FrontmatterGeneratorModal(this.app).open();
 				}
 				return true;
+			},
+		});
+
+		this.addCommand({
+			id: "yonda-add-inline-quote",
+			name: "リスト内に引用",
+			editorCallback: (editor: Editor, view: MarkdownView) => {
+				addSymbol(">", editor, view);
+			},
+		});
+
+		this.addCommand({
+			id: "yonda-add-inline-bulb",
+			name: "リスト内に:bulb:",
+			editorCallback: (editor: Editor, view: MarkdownView) => {
+				addSymbol(":bulb:", editor, view);
 			},
 		});
 	}

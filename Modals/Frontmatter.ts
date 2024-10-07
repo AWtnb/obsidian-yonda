@@ -46,9 +46,12 @@ export class FrontmatterGeneratorModal extends Modal {
 	onOpen(): void {
 		const view = this.app.workspace.getActiveViewOfType(MarkdownView);
 		const noteBasename = activeFileBasename(this.app);
+		if (!view || view.getMode() == "preview") {
+			new Notice("このモードでは無効なコマンドです");
+			this.close();
+			return;
+		}
 		if (
-			!view ||
-			view.getMode() == "preview" ||
 			!noteBasename ||
 			noteBasename.length != 13 ||
 			!noteBasename.startsWith("9784")
