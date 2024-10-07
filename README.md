@@ -1,5 +1,11 @@
 # Obsidian Yonda
 
+Obsidian for [this](https://github.com/AWtnb/bookscrap).
+
+ISBNで書誌情報を取得してObsidianに登録する。
+
+## Screenshots
+
 ![img](./images/img-register.png)
 
 ![img](./images/img-generate.png)
@@ -8,9 +14,7 @@
 
 ![img](./images/img-moblie-toolbar.png)
 
-Obsidian for [this](https://github.com/AWtnb/bookscrap).
-
-ISBNで書誌情報を取得してObsidianに登録する。
+using [obsidian-emoji-shortcodes](https://github.com/phibr0/obsidian-emoji-shortcodes) .
 
 ## Install
 
