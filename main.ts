@@ -7,8 +7,11 @@ import { addSymbol } from "Modals/Inline";
 const COMMAND_RegisterNote = "ノートを作る／開く";
 const COMMAND_GenerateFrontmatter = "フロントマターを作る";
 
-// https://docs.obsidian.md/Plugins/User+interface/Icons#Browse+available+icons
-// https://lucide.dev/icons/
+/*
+icons
+https://lucide.dev/icons/
+https://docs.obsidian.md/Plugins/User+interface/Icons#Browse+available+icons
+*/
 
 export default class Yonda extends Plugin {
 	async onload() {
@@ -45,6 +48,7 @@ export default class Yonda extends Plugin {
 		this.addCommand({
 			id: "yonda-add-inline-quote",
 			name: "リスト内に引用",
+			icon: "quote",
 			editorCallback: (editor: Editor, view: MarkdownView) => {
 				addSymbol(">", editor, view);
 			},
@@ -53,6 +57,7 @@ export default class Yonda extends Plugin {
 		this.addCommand({
 			id: "yonda-add-inline-bulb",
 			name: "リスト内に:bulb:",
+			icon: "lightbulb",
 			editorCallback: (editor: Editor, view: MarkdownView) => {
 				addSymbol(":bulb:", editor, view);
 			},
