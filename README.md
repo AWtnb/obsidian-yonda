@@ -6,6 +6,8 @@
 
 ![img](./images/img-result.png)
 
+![img](./images/img-moblie-toolbar.png)
+
 Obsidian for [this](https://github.com/AWtnb/bookscrap).
 
 ISBNで書誌情報を取得してObsidianに登録する。
