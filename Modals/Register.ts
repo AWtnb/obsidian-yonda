@@ -1,6 +1,6 @@
 import { App, Modal } from "obsidian";
 
-import { IsbnHandler, activeFileBasename } from "Modals/helpers";
+import { IsbnHandler, activeFileBasename } from "helpers/utils";
 import axios from "axios";
 
 export class RegisterModal extends Modal {

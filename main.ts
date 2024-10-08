@@ -2,7 +2,7 @@ import { Plugin, Editor, MarkdownView } from "obsidian";
 
 import { RegisterModal } from "Modals/Register";
 import { FrontmatterGeneratorModal } from "Modals/Frontmatter";
-import { addSymbol } from "Modals/Inline";
+import { addSymbol } from "helpers/inlist";
 
 const COMMAND_RegisterNote = "ノートを作る／開く";
 const COMMAND_GenerateFrontmatter = "フロントマターを作る";

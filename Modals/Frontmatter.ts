@@ -1,6 +1,6 @@
 import { App, Modal, MarkdownView, Notice } from "obsidian";
 
-import { activeFileBasename } from "Modals/helpers";
+import { activeFileBasename } from "helpers/utils";
 import axios from "axios";
 import { dump } from "js-yaml";
 
