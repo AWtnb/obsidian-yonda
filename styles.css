@@ -62,3 +62,22 @@
 	background: var(--metadata-input-background-active);
 	color: var(--metadata-input-text-color);
 }
+
+#chapter-modal label {
+	display: block;
+	margin-top: 0.5em;
+}
+
+#chapter-modal label input {
+	margin: 4px 0;
+	display: block;
+	width: 100%;
+}
+#chapter-modal input.chap {
+	width: 4em;
+}
+
+#chapter-modal button {
+	margin-top: 2em;
+	width: 100%;
+}

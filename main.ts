@@ -2,6 +2,7 @@ import { Plugin, Editor, MarkdownView } from "obsidian";
 
 import { RegisterModal } from "Modals/Register";
 import { FrontmatterGeneratorModal } from "Modals/Frontmatter";
+import { ChapterModal } from "Modals/Chapter";
 import { addSymbol } from "helpers/inlist";
 
 const COMMAND_RegisterNote = "ノートを作る／開く";
@@ -60,6 +61,15 @@ export default class Yonda extends Plugin {
 			icon: "lightbulb",
 			editorCallback: (editor: Editor, view: MarkdownView) => {
 				addSymbol(":bulb:", editor, view);
+			},
+		});
+
+		this.addCommand({
+			id: "yonda-add-inline-chapter-title",
+			name: "章見出しを追加",
+			icon: "pen",
+			editorCallback: (editor: Editor, view: MarkdownView) => {
+				new ChapterModal(this.app, editor, view).open();
 			},
 		});
 	}
