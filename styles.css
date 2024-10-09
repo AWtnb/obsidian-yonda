@@ -72,6 +72,7 @@
 	margin: 4px 0;
 	display: block;
 	width: 100%;
+	outline: solid 1px gray;
 }
 #chapter-modal input.chap {
 	width: 4em;

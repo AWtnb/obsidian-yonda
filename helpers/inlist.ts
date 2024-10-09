@@ -13,15 +13,15 @@ class EditorLine {
 
 	private get indent(): string {
 		const n = this.text.length - this.content.length;
-		return this.content.substring(0, n);
+		return this.text.substring(0, n);
 	}
 
-	private isList(): boolean {
+	private get isList(): boolean {
 		return this.listSymbols.includes(this.content.substring(0, 2));
 	}
 
 	format(): string {
-		if (!this.isList()) {
+		if (!this.isList) {
 			return (
 				this.indent +
 				this.listSymbols[0] +
