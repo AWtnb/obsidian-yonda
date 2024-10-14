@@ -187,15 +187,10 @@ export class FrontmatterGeneratorModal extends Modal {
 		};
 
 		execButton.onclick = async () => {
-			const activeView =
-				this.app.workspace.getActiveViewOfType(MarkdownView);
-			if (!activeView) return;
-			const file = activeView.file;
-			if (!file) return;
-			await this.app.vault.modify(
-				file,
-				previewArea.value + "\n" + (await this.app.vault.read(file))
-			);
+			const editor = this.app.workspace.activeEditor?.editor;
+			if (editor) {
+				editor.setLine(0, previewArea.value + "\n" + editor.getLine(0));
+			}
 			this.close();
 		};
 	}
