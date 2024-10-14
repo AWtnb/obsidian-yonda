@@ -28,22 +28,22 @@ export default class Yonda extends Plugin {
 		this.addCommand({
 			id: "yonda-open-register-modal",
 			name: COMMAND_RegisterNote,
-			checkCallback: (checking: boolean): boolean => {
-				if (!checking) {
-					new RegisterModal(this.app).open();
+			checkCallback: (checking: boolean) => {
+				if (checking) {
+					return true;
 				}
-				return true;
+				new RegisterModal(this.app).open();
 			},
 		});
 
 		this.addCommand({
 			id: "yonda-generate-frontmatter",
 			name: COMMAND_GenerateFrontmatter,
-			checkCallback: (checking: boolean): boolean => {
-				if (!checking) {
-					new FrontmatterGeneratorModal(this.app).open();
+			checkCallback: (checking: boolean) => {
+				if (checking) {
+					return true;
 				}
-				return true;
+				new FrontmatterGeneratorModal(this.app).open();
 			},
 		});
 
