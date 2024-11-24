@@ -33,6 +33,15 @@ Copy over `main.js`, `styles.css`, `manifest.json` to `VaultFolder/.obsidian/plu
 
 `main.js` ・ `styles.css` ・ `manifest.json` をそれぞれ `（管理対象のフォルダ）/.obsidian/plugins/obsidian-yonda/` にコピーしてもインストール可能。
 
+## Develop / Debug
+
+1. `mkdir VaultFolder\.obsidian\plugins`
+1. `cd VaultFolder\.obsidian\plugins`
+1. `git clone https://github.com/AWtnb/obsidian-yonda.git`
+1. `npm install`
+1. `npm run dev`
+
+
 ---
 
 - Generated from [obsidian-sample-plugin](https://github.com/obsidianmd/obsidian-sample-plugin)
