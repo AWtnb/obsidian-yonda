@@ -3,7 +3,11 @@ import { Plugin, Editor, MarkdownView } from "obsidian";
 import { RegisterModal } from "Modals/Register";
 import { FrontmatterGeneratorModal } from "Modals/Frontmatter";
 import { ChapterModal } from "Modals/Chapter";
-import { addListLineWithSymbol, indentedQuote } from "helpers/utils";
+import {
+	addListLineWithSymbol,
+	dokuryoSection,
+	indentedQuote,
+} from "helpers/utils";
 
 const COMMAND_RegisterNote = "ノートを作る／開く";
 const COMMAND_GenerateFrontmatter = "フロントマターを作る";
@@ -87,23 +91,7 @@ export default class Yonda extends Plugin {
 			name: "読了",
 			icon: "book-check",
 			editorCallback: (editor: Editor, view: MarkdownView) => {
-				if (!view || view.getMode() == "preview") {
-					return;
-				}
-				const lines = [
-					"",
-					"---",
-					"",
-					"`#読了`",
-					"",
-					"```",
-					"",
-					"```",
-					"",
-				].join("\n");
-				const cursor = editor.getCursor()
-				editor.setLine(cursor.line, lines);
-				editor.setCursor(cursor.line + 6, 0);
+				dokuryoSection(this.app, editor, view);
 			},
 		});
 	}

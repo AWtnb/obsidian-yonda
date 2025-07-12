@@ -133,3 +133,53 @@ export class NestedCircumfix {
 		return result.join("");
 	}
 }
+
+const getFrontmatterShortestAlias = (app: App): string => {
+	const activeView = app.workspace.getActiveViewOfType(MarkdownView);
+	if (!activeView) return "";
+	const activeFile = activeView.file;
+	if (!activeFile) return "";
+	const cache = app.metadataCache.getFileCache(activeFile);
+	if (!cache) return "";
+	const frontmatter = cache.frontmatter;
+	if (!frontmatter || !frontmatter.aliases) return "";
+	const aliases = frontmatter.aliases;
+	const arr = Array.isArray(aliases)
+		? aliases
+		: aliases.split(",").map((a: string) => a.trim());
+	return arr.sort((a: string, b: string) => a.length - b.length)[0];
+};
+
+export const dokuryoSection = (
+	app: App,
+	editor: Editor,
+	view: MarkdownView
+) => {
+	if (view.getMode() == "preview") {
+		return;
+	}
+	const bookTitle = getFrontmatterShortestAlias(app);
+	const lines = [
+		"",
+		"---",
+		"",
+		"`#読了`",
+		"",
+		"```",
+		`『${bookTitle}』 #読了`,
+		"",
+		"```",
+		"",
+	];
+	const cursorIdx = lines
+		.map((line, i) => {
+			if (line.startsWith("『")) {
+				return i;
+			}
+			return -1;
+		})
+		.filter((i) => -1 < i)[0];
+	const cursor = editor.getCursor();
+	editor.setLine(cursor.line, lines.join("\n"));
+	editor.setCursor(cursor.line + cursorIdx, bookTitle.length + 1);
+};
