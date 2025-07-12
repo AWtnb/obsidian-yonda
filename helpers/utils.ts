@@ -50,6 +50,8 @@ export const activeFileBasename = (app: App): string => {
 	return activeFile.basename;
 }
 
+export const ListSymbols = ["- ", "+ ", "* "];
+
 export const addListLineWithSymbol = (
 	symbol: string,
 	editor: Editor,
@@ -66,11 +68,10 @@ export const addListLineWithSymbol = (
 	}
 
 	const newListLine: string = (() => {
-		const listSymbols = ["- ", "+ ", "* "];
 		const indent = line.substring(0, line.length - line.trimStart().length);
 		const content = line.trimStart();
 		// if line is already list
-		if (listSymbols.includes(content.substring(0, 2))) {
+		if (ListSymbols.includes(content.substring(0, 2))) {
 			return (
 				indent +
 				content.substring(0, 2) +
@@ -79,7 +80,7 @@ export const addListLineWithSymbol = (
 				content.substring(2)
 			);
 		}
-		return indent + listSymbols[0] + symbol + " " + content;
+		return indent + ListSymbols[0] + symbol + " " + content;
 	})();
 
 	editor.setLine(cursor.line, newListLine);

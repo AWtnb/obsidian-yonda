@@ -1,3 +1,4 @@
+import { ListSymbols } from "helpers/utils";
 import { App, Modal, Editor, MarkdownView } from "obsidian";
 
 export class ChapterModal extends Modal {
@@ -32,6 +33,9 @@ export class ChapterModal extends Modal {
 		chap.focus();
 
 		const getTitleLine = (): string => {
+			if (chap.value.trim().length < 1) {
+				return `「${title.value}」`;
+			}
 			return `第${chap.value}章「${title.value}」`;
 		};
 
@@ -43,16 +47,16 @@ export class ChapterModal extends Modal {
 		title.oninput = updatePreview;
 
 		const insertTitleLine = () => {
-			if (chap.value.length < 1 || title.value.length < 1) {
+			if (title.value.length < 1) {
 				return;
 			}
-			const tl = getTitleLine();
 			const cursor = this.editor.getCursor();
-			this.editor.replaceRange(tl, this.editor.getCursor());
-			this.editor.setCursor(
+			const tl = getTitleLine();
+			this.editor.setLine(
 				cursor.line,
-				this.editor.getLine(cursor.line).length
+				this.editor.getLine(cursor.line) + "\n" + tl + "\n"
 			);
+			this.editor.setCursor(cursor.line + 2, 0);
 			this.close();
 		};
 
