@@ -145,9 +145,11 @@ const getFrontmatterShortestAlias = (app: App): string => {
 	if (!frontmatter || !frontmatter.aliases) return "";
 	const aliases = frontmatter.aliases;
 	const arr = Array.isArray(aliases)
-		? aliases
+		? aliases.filter(Boolean)
 		: aliases.split(",").map((a: string) => a.trim());
-	return arr.sort((a: string, b: string) => a.length - b.length)[0];
+	return arr
+		.filter((a: string) => 0 < a.trim().length)
+		.sort((a: string, b: string) => a.length - b.length)[0];
 };
 
 export const dokuryoSection = (
