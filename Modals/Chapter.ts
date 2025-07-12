@@ -1,4 +1,4 @@
-import { ListSymbols } from "helpers/utils";
+import { ListSymbols, NestedCircumfix } from "helpers/utils";
 import { App, Modal, Editor, MarkdownView } from "obsidian";
 
 export class ChapterModal extends Modal {
@@ -32,11 +32,13 @@ export class ChapterModal extends Modal {
 
 		chap.focus();
 
+		const bracketHandler = new NestedCircumfix(["「", "」"], ["『", "』"]);
 		const getTitleLine = (): string => {
+			const t = bracketHandler.fix(`「${title.value}」`);
 			if (chap.value.trim().length < 1) {
-				return `「${title.value}」`;
+				return t;
 			}
-			return `第${chap.value}章「${title.value}」`;
+			return `第${chap.value}章 ${t}`;
 		};
 
 		const updatePreview = () => {

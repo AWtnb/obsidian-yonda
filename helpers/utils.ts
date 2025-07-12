@@ -48,7 +48,7 @@ export const activeFileBasename = (app: App): string => {
 	const activeFile = activeView.file;
 	if (!activeFile) return "";
 	return activeFile.basename;
-}
+};
 
 export const ListSymbols = ["- ", "+ ", "* "];
 
@@ -99,3 +99,37 @@ export const indentedQuote = (editor: Editor, view: MarkdownView) => {
 	editor.setLine(cursor.line, newLine);
 	editor.setCursor(cursor.line + 2, depth + 3);
 };
+
+export class NestedCircumfix {
+	private pairs: [[string, string], [string, string]];
+
+	constructor(
+		prime_pair: [string, string],
+		secondory_pair: [string, string]
+	) {
+		this.pairs = [prime_pair, secondory_pair];
+	}
+
+	fix(s: string): string {
+		const stack: number[] = [];
+		const result: string[] = Array.from(s);
+		const [openChar, closeChar] = this.pairs[0];
+
+		for (let i = 0; i < s.length; i++) {
+			const char = s[i];
+			if (char === openChar) {
+				stack.push(i);
+			} else if (char === closeChar) {
+				if (stack.length > 0) {
+					const start = stack.pop()!;
+					const depth = stack.length;
+					const [left, right] = this.pairs[depth % 2];
+					result[start] = left;
+					result[i] = right;
+				}
+			}
+		}
+
+		return result.join("");
+	}
+}
