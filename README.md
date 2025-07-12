@@ -35,11 +35,13 @@ Copy over `main.js`, `styles.css`, `manifest.json` to `VaultFolder/.obsidian/plu
 
 ## Develop / Debug
 
-1. `mkdir VaultFolder\.obsidian\plugins`
-1. `cd VaultFolder\.obsidian\plugins`
+1. Create test vault and open from Obsidian.
+1. `mkdir (VaultFolder)\.obsidian\plugins`
+1. `cd (VaultFolder)\.obsidian\plugins`
 1. `git clone https://github.com/AWtnb/obsidian-yonda.git`
 1. `npm install`
 1. `npm run dev`
+1. From Obsidian, run `Reload app without saving` command. Then, `Yonda` should appear in `Community plugins` setting.
 
 
 ---
