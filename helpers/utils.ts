@@ -1,4 +1,4 @@
-import { App, MarkdownView } from "obsidian";
+import { App, Editor, MarkdownView } from "obsidian";
 
 export class IsbnHandler {
 	private isbn: string;
@@ -49,3 +49,52 @@ export const activeFileBasename = (app: App): string => {
 	if (!activeFile) return "";
 	return activeFile.basename;
 }
+
+export const addListLineWithSymbol = (
+	symbol: string,
+	editor: Editor,
+	view: MarkdownView
+) => {
+	if (!view || view.getMode() == "preview") {
+		return;
+	}
+	const cursor = editor.getCursor();
+	const line = editor.getLine(cursor.line);
+	if (line.length < 1) {
+		editor.replaceSelection("- " + symbol + " ");
+		return;
+	}
+
+	const newListLine: string = (() => {
+		const listSymbols = ["- ", "+ ", "* "];
+		const indent = line.substring(0, line.length - line.trimStart().length);
+		const content = line.trimStart();
+		// if line is already list
+		if (listSymbols.includes(content.substring(0, 2))) {
+			return (
+				indent +
+				content.substring(0, 2) +
+				symbol +
+				" " +
+				content.substring(2)
+			);
+		}
+		return indent + listSymbols[0] + symbol + " " + content;
+	})();
+
+	editor.setLine(cursor.line, newListLine);
+	editor.setCursor(cursor.line, cursor.ch + symbol.length + 1);
+};
+
+export const indentedQuote = (editor: Editor, view: MarkdownView) => {
+	if (!view || view.getMode() == "preview") {
+		return;
+	}
+	const cursor = editor.getCursor();
+	const line = editor.getLine(cursor.line);
+	const depth = line.length - line.trimStart().length;
+	const indent = "\t".repeat(depth + 1);
+	const newLine = line + "\n".repeat(2) + indent + "> ";
+	editor.setLine(cursor.line, newLine);
+	editor.setCursor(cursor.line + 2, depth + 3);
+};

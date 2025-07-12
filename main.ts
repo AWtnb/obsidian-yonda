@@ -3,8 +3,7 @@ import { Plugin, Editor, MarkdownView } from "obsidian";
 import { RegisterModal } from "Modals/Register";
 import { FrontmatterGeneratorModal } from "Modals/Frontmatter";
 import { ChapterModal } from "Modals/Chapter";
-import { addSymbol } from "helpers/inlist";
-import { nestedQuote } from "helpers/quote";
+import { addListLineWithSymbol, indentedQuote } from "helpers/utils";
 
 const COMMAND_RegisterNote = "ノートを作る／開く";
 const COMMAND_GenerateFrontmatter = "フロントマターを作る";
@@ -52,7 +51,7 @@ export default class Yonda extends Plugin {
 			name: "リスト内に引用",
 			icon: "quote",
 			editorCallback: (editor: Editor, view: MarkdownView) => {
-				addSymbol(">", editor, view);
+				addListLineWithSymbol(">", editor, view);
 			},
 		});
 
@@ -61,7 +60,7 @@ export default class Yonda extends Plugin {
 			name: "リスト内に:bulb:",
 			icon: "lightbulb",
 			editorCallback: (editor: Editor, view: MarkdownView) => {
-				addSymbol(":bulb:", editor, view);
+				addListLineWithSymbol(":bulb:", editor, view);
 			},
 		});
 
@@ -75,11 +74,11 @@ export default class Yonda extends Plugin {
 		});
 
 		this.addCommand({
-			id: "yonda-add-nested-quote",
+			id: "yonda-add-indented-quote",
 			name: "ネストして引用",
 			icon: "text-quote",
 			editorCallback: (editor: Editor, view: MarkdownView) => {
-				nestedQuote(editor, view);
+				indentedQuote(editor, view);
 			},
 		});
 	}
