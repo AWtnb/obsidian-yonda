@@ -81,6 +81,31 @@ export default class Yonda extends Plugin {
 				indentedQuote(editor, view);
 			},
 		});
+
+		this.addCommand({
+			id: "yonda-add-note-section",
+			name: "読了",
+			icon: "book-check",
+			editorCallback: (editor: Editor, view: MarkdownView) => {
+				if (!view || view.getMode() == "preview") {
+					return;
+				}
+				const lines = [
+					"",
+					"---",
+					"",
+					"`#読了`",
+					"",
+					"```",
+					"",
+					"```",
+					"",
+				].join("\n");
+				const cursor = editor.getCursor()
+				editor.setLine(cursor.line, lines);
+				editor.setCursor(cursor.line + 6, 0);
+			},
+		});
 	}
 
 	onunload() {}
