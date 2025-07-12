@@ -7,11 +7,11 @@ function Copy-PluginFiles {
         return
     }
 
-    $obsidianPath = $vaultDir | Join-Path -ChildPath ".obsidian\plugins\obsidian-yonda"
-    if (-not (Test-Path $obsidianPath -PathType Container)) {
-        New-Item $obsidianPath -ItemType Directory
+    $extensionDir = $vaultDir | Join-Path -ChildPath ".obsidian\plugins\obsidian-yonda"
+    if (-not (Test-Path $extensionDir -PathType Container)) {
+        New-Item $extensionDir -ItemType Directory
     }
-    Get-ChildItem -Path @("main.js", "styles.css", "manifest.json") | Copy-Item -Destination $obsidianPath
+    Get-ChildItem $PSScriptRoot | Where-Object {$_.Name -in @("main.js", "styles.css", "manifest.json")} | Copy-Item -Destination $extensionDir
 }
 
 Copy-PluginFiles -vaultDir $args[0]
