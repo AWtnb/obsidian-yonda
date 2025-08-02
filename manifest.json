@@ -3,7 +3,7 @@
 	"name": "Yonda",
 	"version": "1.0.0",
 	"minAppVersion": "0.15.0",
-	"description": "Personal obsidian plugin fo scrapping book info.",
+	"description": "Personal obsidian plugin for scrapping book info.",
 	"author": "Obsidian",
 	"authorUrl": "https://github.com/AWtnb/obsidian-yonda",
 	"isDesktopOnly": false

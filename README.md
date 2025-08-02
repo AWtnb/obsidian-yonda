@@ -29,7 +29,7 @@ Run [install.ps1](install.ps1) with vault folder path as an argument.
 
 ### Manual install
 
-Copy over `main.js`, `styles.css`, `manifest.json` to `VaultFolder/.obsidian/plugins/obsidian-yonda/` .
+Copy over `main.js`, `styles.css`, `manifest.json` to `(VaultFolder)/.obsidian/plugins/obsidian-yonda/` .
 
 `main.js` ・ `styles.css` ・ `manifest.json` をそれぞれ `（管理対象のフォルダ）/.obsidian/plugins/obsidian-yonda/` にコピーしてもインストール可能。
 

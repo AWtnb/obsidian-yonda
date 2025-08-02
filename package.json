@@ -1,7 +1,7 @@
 {
 	"name": "obsidian-yonda",
 	"version": "1.0.0",
-	"description": "Personal obsidian plugin fo scrapping book info.",
+	"description": "Personal obsidian plugin for scrapping book info.",
 	"main": "main.js",
 	"scripts": {
 		"dev": "node esbuild.config.mjs",
