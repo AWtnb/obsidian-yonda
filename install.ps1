@@ -14,4 +14,16 @@ function Copy-PluginFiles {
     Get-ChildItem $PSScriptRoot | Where-Object {$_.Name -in @("main.js", "styles.css", "manifest.json")} | Copy-Item -Destination $extensionDir
 }
 
-Copy-PluginFiles -vaultDir $args[0]
+try {
+    Get-Command npm -ErrorAction stop > $null
+    npm install
+    if ($LASTEXITCODE -eq 0) {
+        npm run build
+        if ($LASTEXITCODE -eq 0) {
+            Copy-PluginFiles -vaultDir $args[0]
+        }
+    }
+}
+catch {
+    Write-Error $_
+}
