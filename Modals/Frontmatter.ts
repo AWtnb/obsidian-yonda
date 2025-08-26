@@ -31,6 +31,7 @@ const checkFrontmatter = (app: App): boolean => {
 };
 
 interface YondaFrontmatter {
+	title: string;
 	aliases: string[];
 	isbn: number;
 	from: string;
@@ -115,8 +116,10 @@ export class FrontmatterGeneratorModal extends Modal {
 		};
 
 		const bookFrontmatter = (): string => {
+			const aliases = titleAliases();
 			const fm: YondaFrontmatter = {
-				aliases: titleAliases(),
+				title: aliases[0],
+				aliases: aliases,
 				isbn: Number(noteBasename),
 				from: publisherInput.value,
 				year: Number(publishYearInput.value),
