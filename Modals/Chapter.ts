@@ -56,9 +56,9 @@ export class ChapterModal extends Modal {
 			const tl = getTitleLine();
 			this.editor.setLine(
 				cursor.line,
-				this.editor.getLine(cursor.line) + "\n" + tl + "\n"
+				this.editor.getLine(cursor.line) + "\n\n" + tl + "\n- "
 			);
-			this.editor.setCursor(cursor.line + 2, 0);
+			this.editor.setCursor(cursor.line + 3);
 			this.close();
 		};
 
