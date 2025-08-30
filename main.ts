@@ -64,7 +64,7 @@ export default class Yonda extends Plugin {
 			name: "リスト内に:bulb:",
 			icon: "lightbulb",
 			editorCallback: (editor: Editor, view: MarkdownView) => {
-				addListLineWithSymbol(":bulb:", editor, view);
+				addListLineWithSymbol("\ud83d\udca1", editor, view);
 			},
 		});
 
