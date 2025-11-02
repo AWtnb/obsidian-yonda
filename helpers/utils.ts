@@ -134,7 +134,7 @@ export class NestedCircumfix {
 	}
 }
 
-const getFrontmatterShortestAlias = (app: App): string => {
+const getBookTitle = (app: App): string => {
 	const activeView = app.workspace.getActiveViewOfType(MarkdownView);
 	if (!activeView) return "";
 	const activeFile = activeView.file;
@@ -142,14 +142,8 @@ const getFrontmatterShortestAlias = (app: App): string => {
 	const cache = app.metadataCache.getFileCache(activeFile);
 	if (!cache) return "";
 	const frontmatter = cache.frontmatter;
-	if (!frontmatter || !frontmatter.aliases) return "";
-	const aliases = frontmatter.aliases;
-	const arr = Array.isArray(aliases)
-		? aliases.filter(Boolean)
-		: aliases.split(",").map((a: string) => a.trim());
-	return arr
-		.filter((a: string) => 0 < a.trim().length)
-		.sort((a: string, b: string) => a.length - b.length)[0];
+	if (!frontmatter || !frontmatter.title) return "";
+	return frontmatter.title;
 };
 
 export const dokuryoSection = (
@@ -160,7 +154,7 @@ export const dokuryoSection = (
 	if (view.getMode() == "preview") {
 		return;
 	}
-	const bookTitle = getFrontmatterShortestAlias(app);
+	const bookTitle = getBookTitle(app);
 	const lines = [
 		"",
 		"---",
@@ -170,18 +164,11 @@ export const dokuryoSection = (
 		"```",
 		`『${bookTitle}』 #読了`,
 		"",
+		"",
 		"```",
 		"",
 	];
-	const cursorIdx = lines
-		.map((line, i) => {
-			if (line.startsWith("『")) {
-				return i;
-			}
-			return -1;
-		})
-		.filter((i) => -1 < i)[0];
 	const cursor = editor.getCursor();
 	editor.setLine(cursor.line, lines.join("\n"));
-	editor.setCursor(cursor.line + cursorIdx, bookTitle.length + 1);
+	editor.setCursor(cursor.line + 7 + 1);
 };
