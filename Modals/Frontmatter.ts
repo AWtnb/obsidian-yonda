@@ -30,6 +30,27 @@ const checkFrontmatter = (app: App): boolean => {
 	return !!cache.frontmatter;
 };
 
+class BookTitle {
+	readonly main: string = "";
+	readonly sub: string = "";
+	constructor(s: string) {
+		const sep = "  ";
+		const i = s.trim().replace(/\s/g, " ").indexOf(sep);
+		if (i === -1) {
+			this.main = s.trim();
+			return;
+		}
+		this.main = s.substring(0, i).trim();
+		this.sub = s.substring(i + sep.length).trim();
+	}
+	format(): string {
+		if (this.sub.length < 1) {
+			return this.main;
+		}
+		return `${this.main}――${this.sub}`;
+	}
+}
+
 interface YondaFrontmatter {
 	title: string;
 	aliases: string[];
@@ -80,25 +101,18 @@ export class FrontmatterGeneratorModal extends Modal {
 		const title = contentEl.createDiv();
 		title.addClass("title");
 		const titleInput = title
-			.createEl("label", { text: "title" })
+			.createEl("label", {
+				text: "書名（副題はスペース2つで区切る）",
+			})
 			.createEl("input");
-		const applyTitleButton = title.createEl("button", { text: "\u25bc" });
-		const subTitle = contentEl.createDiv();
-		subTitle.addClass("subtitle");
-		const subTitleInput = subTitle
-			.createEl("label", { text: "subtitle" })
-			.createEl("input");
-		const clearSubTitleButton = subTitle.createEl("button", {
-			text: "\u00d7",
-		});
 		const publisherInput = contentEl
-			.createEl("label", { text: "publisher" })
+			.createEl("label", { text: "版元" })
 			.createEl("input");
 		const publishYearInput = contentEl
-			.createEl("label", { text: "publish year" })
+			.createEl("label", { text: "刊行年" })
 			.createEl("input", { type: "tel" });
 		const tagsInput = contentEl
-			.createEl("label", { text: "tags" })
+			.createEl("label", { text: "タグ" })
 			.createEl("input");
 		const previewArea = contentEl.createEl("textarea", { cls: "preview" });
 		const execButton = contentEl.createEl("button", {
@@ -106,20 +120,11 @@ export class FrontmatterGeneratorModal extends Modal {
 			cls: "exec",
 		});
 
-		const titleAliases = (): string[] => {
-			const main = toHalfWidth(titleInput.value).trim();
-			const sub = toHalfWidth(subTitleInput.value).trim();
-			if (main == sub || sub.length < 1) {
-				return [main];
-			}
-			return [`${main}――${sub}`, main];
-		};
-
 		const bookFrontmatter = (): string => {
-			const aliases = titleAliases();
+			const bookTitle = new BookTitle(titleInput.value);
 			const fm: YondaFrontmatter = {
-				title: aliases[0],
-				aliases: aliases,
+				title: bookTitle.format(),
+				aliases: [bookTitle.main],
 				isbn: Number(noteBasename),
 				from: publisherInput.value,
 				year: Number(publishYearInput.value),
@@ -131,35 +136,19 @@ export class FrontmatterGeneratorModal extends Modal {
 			previewArea.value = bookFrontmatter();
 		};
 
-		[
-			titleInput,
-			subTitle,
-			subTitleInput,
-			clearSubTitleButton,
-			publisherInput,
-			publishYearInput,
-			tagsInput,
-		].forEach((el) => (el.oninput = updatePreview));
-
-		clearSubTitleButton.onclick = () => {
-			subTitleInput.value = "";
-			updatePreview();
-		};
-
-		applyTitleButton.onclick = () => {
-			subTitleInput.value = titleInput.value;
-			updatePreview();
-		};
+		[titleInput, publisherInput, publishYearInput, tagsInput].forEach(
+			(el) => (el.oninput = updatePreview)
+		);
 
 		axios
 			.get(`https://api.openbd.jp/v1/get?isbn=${noteBasename}`)
 			.then((response) => {
 				if (response.data[0]) {
 					const summary = response.data[0].summary;
-					titleInput.value = summary.title;
-					subTitleInput.value =
+					const sub =
 						response.data[0].onix?.DescriptiveDetail?.TitleDetail
 							?.TitleElement?.Subtitle?.content || "";
+					titleInput.value = `${summary.title}  ${sub}`.trim();
 					publisherInput.value = toHalfWidth(summary.publisher);
 					publishYearInput.value = summary.pubdate.substring(0, 4);
 					tagsInput.value = summary.author;
@@ -175,8 +164,8 @@ export class FrontmatterGeneratorModal extends Modal {
 				.then((response) => {
 					if (response.data.items) {
 						const vInfo = response.data.items[0].volumeInfo;
-						titleInput.value = vInfo.title;
-						subTitleInput.value = vInfo.subtitle || "";
+						const sub = vInfo.subtitle || "";
+						titleInput.value = `${vInfo.title}  ${sub}`.trim();
 						publisherInput.value = toHalfWidth(
 							vInfo.publisher || ""
 						);
