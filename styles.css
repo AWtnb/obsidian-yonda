@@ -21,31 +21,6 @@
 	width: 100%;
 }
 
-#frontmatter-gen-modal .title {
-	position: relative;
-}
-#frontmatter-gen-modal .title button {
-	position: absolute;
-	right: 0;
-	box-shadow: none;
-	background: transparent;
-	bottom: 0;
-}
-
-#frontmatter-gen-modal .subtitle {
-	padding-left: 0.5em;
-	position: relative;
-	border-left: 2px solid var(--color-base-60);
-}
-
-#frontmatter-gen-modal .subtitle button {
-	position: absolute;
-	right: 0;
-	box-shadow: none;
-	background: transparent;
-	bottom: 0;
-}
-
 #frontmatter-gen-modal label {
 	display: block;
 	margin-top: 0.5em;
@@ -54,7 +29,7 @@
 #frontmatter-gen-modal label input {
 	margin: 4px 0;
 	display: block;
-	width: 90%;
+	width: 100%;
 }
 
 #frontmatter-gen-modal button.exec {

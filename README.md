@@ -14,8 +14,6 @@ ISBNで書誌情報を取得してObsidianに登録する。
 
 ![img](./images/img-moblie-toolbar.png)
 
-using [obsidian-emoji-shortcodes](https://github.com/phibr0/obsidian-emoji-shortcodes) .
-
 ## Install
 
 Run [install.ps1](install.ps1) with vault folder path as an argument.
