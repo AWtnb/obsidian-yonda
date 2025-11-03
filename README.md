@@ -39,7 +39,7 @@ Run below command in Vault root directory.
 $n="obsidian-yonda";$repo="https://github.com/AWtnb/$n.git";$p=".obsidian"|Join-Path -ChildPath "plugins";if (-not(Test-Path $p -PathType Container)){New-Item -Path $p -ItemType Directory}Push-Location $p;git clone $repo; cd $n;code .;Pop-Location
 ```
 
-Afterwords, run `npm run dev`.
+Afterwords, run `npm i` and `npm run dev`.
 
 Then on Obsidian, run `Reload app without saving` command. `Yonda` should appear in `Community plugins` setting.
 
