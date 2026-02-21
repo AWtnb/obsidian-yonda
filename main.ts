@@ -1,4 +1,4 @@
-import { Plugin, Editor, MarkdownView } from "obsidian";
+import { Plugin, Editor, MarkdownView, MarkdownFileInfo } from "obsidian";
 
 import { RegisterModal } from "Modals/Register";
 import { FrontmatterGeneratorModal } from "Modals/Frontmatter";
@@ -54,8 +54,13 @@ export default class Yonda extends Plugin {
 			id: "yonda-add-inline-quote",
 			name: "リスト内に引用",
 			icon: "quote",
-			editorCallback: (editor: Editor, view: MarkdownView) => {
-				addListLineWithSymbol(">", editor, view);
+			editorCallback: (
+				editor: Editor,
+				ctx: MarkdownView | MarkdownFileInfo,
+			) => {
+				if (ctx instanceof MarkdownView) {
+					addListLineWithSymbol(">", editor, ctx);
+				}
 			},
 		});
 
@@ -63,8 +68,13 @@ export default class Yonda extends Plugin {
 			id: "yonda-add-inline-bulb",
 			name: "リスト内に:bulb:",
 			icon: "lightbulb",
-			editorCallback: (editor: Editor, view: MarkdownView) => {
-				addListLineWithSymbol("\ud83d\udca1", editor, view);
+			editorCallback: (
+				editor: Editor,
+				ctx: MarkdownView | MarkdownFileInfo,
+			) => {
+				if (ctx instanceof MarkdownView) {
+					addListLineWithSymbol("\ud83d\udca1", editor, ctx);
+				}
 			},
 		});
 
@@ -72,8 +82,13 @@ export default class Yonda extends Plugin {
 			id: "yonda-add-inline-chapter-title",
 			name: "章見出しを追加",
 			icon: "bookmark-plus",
-			editorCallback: (editor: Editor, view: MarkdownView) => {
-				new ChapterModal(this.app, editor, view).open();
+			editorCallback: (
+				editor: Editor,
+				ctx: MarkdownView | MarkdownFileInfo,
+			) => {
+				if (ctx instanceof MarkdownView) {
+					new ChapterModal(this.app, editor, ctx).open();
+				}
 			},
 		});
 
@@ -81,8 +96,13 @@ export default class Yonda extends Plugin {
 			id: "yonda-add-indented-quote",
 			name: "ネストして引用",
 			icon: "text-quote",
-			editorCallback: (editor: Editor, view: MarkdownView) => {
-				indentedQuote(editor, view);
+			editorCallback: (
+				editor: Editor,
+				ctx: MarkdownView | MarkdownFileInfo,
+			) => {
+				if (ctx instanceof MarkdownView) {
+					indentedQuote(editor, ctx);
+				}
 			},
 		});
 
@@ -90,8 +110,13 @@ export default class Yonda extends Plugin {
 			id: "yonda-add-note-section",
 			name: "読了",
 			icon: "book-check",
-			editorCallback: (editor: Editor, view: MarkdownView) => {
-				dokuryoSection(this.app, editor, view);
+			editorCallback: (
+				editor: Editor,
+				ctx: MarkdownView | MarkdownFileInfo,
+			) => {
+				if (ctx instanceof MarkdownView) {
+					dokuryoSection(this.app, editor, ctx);
+				}
 			},
 		});
 	}
