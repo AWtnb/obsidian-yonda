@@ -11,7 +11,7 @@
 	outline: solid 1px gray;
 }
 
-#frontmatter-gen-modal input {
+#frontmatter-gen-modal input:not([type="checkbox"]) {
 	height: var(--input-height);
 }
 #frontmatter-gen-modal textarea.preview {
@@ -25,11 +25,20 @@
 	display: block;
 	margin-top: 0.5em;
 }
+#frontmatter-gen-modal label:has(input[type="checkbox"]) {
+	display: flex;
+}
 
 #frontmatter-gen-modal label input {
 	margin: 4px 0;
 	display: block;
+	/* width: 100%; */
+}
+#frontmatter-gen-modal label input:not([type="checkbox"]) {
 	width: 100%;
+}
+#frontmatter-gen-modal label input[type="checkbox"] {
+	margin-left: 4px;
 }
 
 #frontmatter-gen-modal button.exec {

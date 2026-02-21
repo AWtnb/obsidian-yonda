@@ -114,6 +114,9 @@ export class FrontmatterGeneratorModal extends Modal {
 		const tagsInput = contentEl
 			.createEl("label", { text: "タグ" })
 			.createEl("input");
+		const kindleCheck = contentEl
+			.createEl("label", { text: "Kindle" })
+			.createEl("input", { type: "checkbox" });
 		const previewArea = contentEl.createEl("textarea", { cls: "preview" });
 		const execButton = contentEl.createEl("button", {
 			text: "OK",
@@ -122,13 +125,17 @@ export class FrontmatterGeneratorModal extends Modal {
 
 		const bookFrontmatter = (): string => {
 			const bookTitle = new BookTitle(titleInput.value);
+			const tags = toAuthorTags(tagsInput.value);
+			if (kindleCheck.checked) {
+				tags.push("Kindle");
+			}
 			const fm: YondaFrontmatter = {
 				title: bookTitle.format(),
 				aliases: [bookTitle.main],
 				isbn: Number(noteBasename),
 				from: publisherInput.value,
 				year: Number(publishYearInput.value),
-				tags: toAuthorTags(tagsInput.value),
+				tags: tags,
 			};
 			return ["---", dump(fm).trim(), "---"].join("\n");
 		};
@@ -136,9 +143,13 @@ export class FrontmatterGeneratorModal extends Modal {
 			previewArea.value = bookFrontmatter();
 		};
 
-		[titleInput, publisherInput, publishYearInput, tagsInput].forEach(
-			(el) => (el.oninput = updatePreview),
-		);
+		[
+			titleInput,
+			publisherInput,
+			publishYearInput,
+			tagsInput,
+			kindleCheck,
+		].forEach((el) => (el.oninput = updatePreview));
 
 		axios
 			.get(`https://api.openbd.jp/v1/get?isbn=${noteBasename}`)
