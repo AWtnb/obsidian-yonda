@@ -1,13 +1,13 @@
 import { Plugin, Editor, MarkdownView, MarkdownFileInfo } from "obsidian";
 
-import { RegisterModal } from "Modals/Register";
-import { FrontmatterGeneratorModal } from "Modals/Frontmatter";
-import { ChapterModal } from "Modals/Chapter";
+import { RegisterModal } from "./Modals/Register";
+import { FrontmatterGeneratorModal } from "./Modals/Frontmatter";
+import { ChapterModal } from "./Modals/Chapter";
 import {
 	addListLineWithSymbol,
 	dokuryoSection,
 	indentedQuote,
-} from "helpers/utils";
+} from "./helpers/utils";
 
 const COMMAND_RegisterNote = "ノートを作る／開く";
 const COMMAND_GenerateFrontmatter = "フロントマターを作る";

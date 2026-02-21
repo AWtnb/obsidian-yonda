@@ -1,6 +1,6 @@
 import { App, Modal, MarkdownView, Notice } from "obsidian";
 
-import { activeFileBasename } from "helpers/utils";
+import { activeFileBasename } from "../helpers/utils";
 import axios from "axios";
 import { dump } from "js-yaml";
 
@@ -137,7 +137,7 @@ export class FrontmatterGeneratorModal extends Modal {
 		};
 
 		[titleInput, publisherInput, publishYearInput, tagsInput].forEach(
-			(el) => (el.oninput = updatePreview)
+			(el) => (el.oninput = updatePreview),
 		);
 
 		axios
@@ -159,7 +159,7 @@ export class FrontmatterGeneratorModal extends Modal {
 		googleBooksButton.onclick = () => {
 			axios
 				.get(
-					`https://www.googleapis.com/books/v1/volumes?q=isbn:${noteBasename}`
+					`https://www.googleapis.com/books/v1/volumes?q=isbn:${noteBasename}`,
 				)
 				.then((response) => {
 					if (response.data.items) {
@@ -167,7 +167,7 @@ export class FrontmatterGeneratorModal extends Modal {
 						const sub = vInfo.subtitle || "";
 						titleInput.value = `${vInfo.title}  ${sub}`.trim();
 						publisherInput.value = toHalfWidth(
-							vInfo.publisher || ""
+							vInfo.publisher || "",
 						);
 						publishYearInput.value = (
 							vInfo.publishedDate || ""

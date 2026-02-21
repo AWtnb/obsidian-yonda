@@ -1,4 +1,4 @@
-import { ListSymbols, NestedCircumfix } from "helpers/utils";
+import { ListSymbols, NestedCircumfix } from "../helpers/utils";
 import { App, Modal, Editor, MarkdownView } from "obsidian";
 
 export class ChapterModal extends Modal {
@@ -56,7 +56,7 @@ export class ChapterModal extends Modal {
 			const tl = getTitleLine();
 			this.editor.setLine(
 				cursor.line,
-				this.editor.getLine(cursor.line) + "\n\n" + tl + "\n\n- "
+				this.editor.getLine(cursor.line) + "\n\n" + tl + "\n\n- ",
 			);
 			this.editor.setCursor(cursor.line + 4);
 			this.close();

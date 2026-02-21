@@ -1,6 +1,6 @@
 import { App, Modal } from "obsidian";
 
-import { IsbnHandler, activeFileBasename } from "helpers/utils";
+import { IsbnHandler, activeFileBasename } from "../helpers/utils";
 import axios from "axios";
 
 export class RegisterModal extends Modal {
@@ -57,7 +57,7 @@ export class RegisterModal extends Modal {
 		const handler = new IsbnHandler(bookNum);
 		const noteName = handler.isbnFull();
 		const noteExists = this.app.vault.getAbstractFileByPath(
-			noteName + ".md"
+			noteName + ".md",
 		);
 		if (!noteExists) {
 			await this.app.vault.create(noteName + ".md", "");
